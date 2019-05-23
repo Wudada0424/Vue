@@ -1,0 +1,159 @@
+<template>
+  <div class="hello">
+
+    <!--    ---------------------------------------数据绑定、绑定属性、循环渲染数据-------------------------------------------->
+
+    <!--    渲染-->
+    <h1>{{ msg }}</h1>
+    <br>
+    你好根组件
+
+    <br>
+    <!--   渲染对象里面的内容 -->
+
+    <h3>{{obj.name}}</h3>
+
+    <br>
+
+    <!--     循环数据  v-for v-for="item in list"-->
+    <ul>
+      <li v-for="item in list">
+        {{item}}
+      </li>
+    </ul>
+    <hr>
+    <br>
+
+    <!--    渲染循环 数组里面的对象-->
+    <ul>
+      <li v-for="itme in list1">
+        {{itme.title}}
+      </li>
+    </ul>
+
+    <hr>
+    <br>
+
+    <!--    循环渲染 数组里面的对象 + 对象里面的数组里面的对象的内容-->
+    <ul>
+      <li v-for="itme in list2">
+        {{itme.cate}}
+        <ol v-for="news in itme.list">
+          {{news.title}}
+        </ol>
+      </li>
+    </ul>
+
+
+    <!--    -----------------------------------------------------绑定属性、绑定html、绑定class、绑定style------------------------------------------------------------------->
+    <br>
+    <hr>
+    <!--    绑定属性 v-bind-->
+    <div v-bind:title="title">
+      鼠标描上去看一下
+    </div>
+    <!--    简写 ：绑定动态数据-->
+    <a :href="url">百度</a>
+
+    <br>
+    <hr>
+    <!--绑定html-->
+    <div v-html="h">
+    </div>
+    <!--另一种绑定html-->
+    <div v-text="msg">
+    </div>
+
+    <br>
+    <hr>
+    <!--绑定class-->
+    <ul>
+      <!--      获取索引 （itme,key）-->
+      <li v-for="(itme,key) in list" :class="{'red':key==0,'blue':key==1}">
+        {{key}}------{{itme}}
+      </li>
+    </ul>
+
+    <div v-bind:class="{'red':true}">
+      我是一个div
+    </div>
+    <div v-bind:class="{'red':false,'blue':true}">
+      我是另一个div
+    </div>
+
+    <br>
+    <hr>
+
+    <!--    绑定style-->
+
+    <div class="box" v-bind:style="{width:boxwidth+'px'}">
+      我是div
+    </div>
+<!--  -----------------------------双向数据绑定—vue事件介绍—ref获取dom节点--------------------------------------------->
+<!--  双向数据绑定 MVVM  vue就是一个MVVM的框架   M model毛豆 V view视图  MVVM  model改变会影响视图view  view视图改变会影响model    必须在表单里面使用-->
+    <br>
+    <hr>
+    <input type="text" v-model="msg">
+
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'HelloWorld',
+    data() {   /*业务逻辑里面的数据*/
+      return {
+        msg: '你好 vue',
+        title: "我是一个title",759168442,
+        url: "https://www.baidu.com",
+        h: "<h2>我是h2</h2>",
+    boxwidth : 300,
+
+        /*--------------------------------------------------------------*/
+        obj: {
+          name: "张三",
+        },
+        list: [11, 22, 33],
+        list1: [
+          {"title": '1111'},
+          {"title": '222'},
+          {"title": '222'},
+        ],
+        list2: [
+          {
+            "cate": "国内新闻",
+            "list": [
+              {"title": "国内新闻1111"},
+              {"title": "国内新闻2222"},
+              {"title": "国内新闻3333"},
+            ]
+          },
+          {
+            "cate": "国际新闻 ",
+            "list": [
+              {"title": "国际新闻1111"},
+              {"title": "国际新闻2222"},
+              {"title": "国际新闻3333"},
+            ]
+          },
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+  .red {
+    color: aqua;
+  }
+
+  .blue {
+    color: blue;
+  }
+  .box{
+    width: 100px;
+    height: 100px;
+    background: red;
+  }
+</style>

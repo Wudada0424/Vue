@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div id="app">
+            <button v-on:click="getData">GET DATA</button>
+            <ul>
+                <li v-for="itme in arr">
+                    <ol v-for="news in itme">
+                        {{news.name}}
+                    </ol>
+                </li>
+            </ul>
+        </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    new Vue({
+        el : "#app",
+        data : {
+            arr : []
+        },
+        methods : {
+            getData : function () {
+                var _this = this;
+              axios.get("https://elm.cangdu.org/v1/cities",{params : {type : "hot"}}).then(function (response) {
+                  _this.arr = response.data
+                  console.log(response.data)
+              },function (error) {
+                  console.log(error)
+              })
+            }
+        }
+
+
+    })
+
+</script>

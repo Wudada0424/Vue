@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .active{
+        padding: 5px;
+        border: 1px solid #cccccc;
+        text-align: center;
+    }
+</style>
+<body>
+    <div id="app">
+            <p :class="actived">明天会更好</p>
+    </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+
+    new Vue({
+        el : "#app",
+        data : {
+            text : "hello world Vue.js",
+            actived : "active"
+        }
+    })
+
+</script>

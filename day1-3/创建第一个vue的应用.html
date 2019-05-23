@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{title}}</p>
+        <p>{{name}}</p>
+        <p>{{age}}</p>
+        <p>{{flag}}</p>
+        <p>{{love}}</p>
+        <p>{{arr[0]}}</p>
+        <p>{{obj.name}}</p>
+        <p>{{obj.age[0]}}</p>
+    </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+
+    new Vue({
+        el : "#app",
+        data : {
+            title:"hello world",
+            name : "jack",
+            age : 100,
+            flag : true,
+            love : null,
+            arr : ["张三","李四","王五"],
+            obj : {
+                name: "rose",
+                age : [20,30,1]
+            }
+
+        }
+    })
+
+</script>

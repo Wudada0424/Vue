@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div id="app">
+            <form action="">
+                <div>
+                    <label for="">姓名：</label>
+                    <div><input type="text"  v-model="user.name"></div>
+                </div>
+                <div>
+                    <label for="" >年龄：</label>
+                    <div><input type="text" v-model="user.age"></div>
+                </div>
+                <div>
+                    <label for="" >邮箱：</label>
+                    <div><input type="text" v-model="user.email"></div>
+                </div>
+                <div>
+                    <div><input type="button" value="添加" @click="add"></div>
+                </div>
+                <input type="reset" value="重  置" class="btn btn-primary">
+            </form>
+
+            <table >
+                <tr>
+                    <th >序号</th>
+                    <th >姓名</th>
+                    <th >年龄</th>
+                    <th >邮箱</th>
+                    <th >操作</th>
+                </tr>
+                <tr v-for="(itme,index) in array">
+                    <td>{{index + 1}}</td>
+                    <td>{{itme.name}}</td>
+                    <td>{{itme.age}}</td>
+                    <td>{{itme.email}}</td>
+                    <td>
+                    <button @click="nowIndex = index" >删除</button>
+                    </td>
+                </tr>
+            </table>
+            <button @click="nowIndex = -1">删除全部</button>
+            <h4  >确认要删除用户：{{array[nowIndex]?array[nowIndex].name : ""}}吗？</h4>
+            <button @click="Del">确定</button>
+        </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+
+    new Vue({
+        el:"#app",
+        data : {
+            array :[
+                {name:"刘佳萌",age:"28",email:"Ljm@sb.com"},
+                {name:"刘佳萌2",age:"38",email:"Ljm2@sb.com"}
+            ],
+            user : {},
+            nowIndex : -1,
+        },
+        methods : {
+            add : function () {
+                this.array.push(this.user)
+                this.user = {}
+            },
+            Del : function(){
+                //判断如果 nowIndex等于-1
+                if(this.nowIndex == -1){
+                    //让array数组为空
+                    this.array = [];
+                }else{
+                    this.array.splice(this.nowIndex,1);
+                }
+            }
+        }
+    })
+</script>

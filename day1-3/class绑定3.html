@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            padding: 5px;
+            border:1px solid #f60;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+        <div id="app">
+            <button @click="flag = !flag">addClass</button>
+            <p :class="{active : flag}">{{text}}</p>
+        </div>
+</body>
+</html>
+<script src="js/vue.js"> </script>
+<script>
+    new Vue({
+        el : "#app",
+        data: {
+            text : "明天会更好",
+            flag : false
+        }
+    })
+
+</script>

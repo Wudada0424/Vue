@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+            <div id="app">
+                <button @click="text"></button>
+                <p>{{count | counts}}万</p>
+            </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+
+    new Vue ({
+            el : "#app",
+            data : {
+                count : 96000
+            },
+        filters: {
+            counts : function (value) {
+                var num = Math.floor((value / 10000) * 10) / 10
+                return num
+            }
+        },
+        methods : {
+            text : function () {
+                count = 97000;
+                console.log(count)
+            }
+        }
+    })
+
+</script>

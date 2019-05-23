@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            color: purple;
+        }
+        .active{
+            padding: 5px;
+            border:1px solid #f60;
+            text-align: center;
+        }
+        .error{
+            padding: 5px;
+            border:1px solid yellow;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+        <div id="app">
+            <button @click="flag = !flag">addClass</button>
+            <p class="box" :class="{active : isActive,error:isError}">{{text}}</p>
+        </div>
+</body>
+</html>
+<script src="js/vue.js"> </script>
+<script>
+    new Vue({
+        el : "#app",
+        data: {
+            text : "明天会更好",
+            isActive : true,
+            isError : false
+        },
+        methods : {
+            changeColor : function () {
+                this.isActive = false;
+                this.isError = true
+            }
+        }
+    })
+
+</script>

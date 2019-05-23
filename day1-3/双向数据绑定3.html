@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name" placeholder="你的名字">
+        <h1>你好,{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+        var obj = {
+            name : "hello world"
+        }
+    var app = new Vue({
+        el:"#app",
+        data : obj
+    })
+
+        console.log(app.name)
+        app.name = "真好"
+        console.log(app.name)
+        obj.name= "明天会更好"
+        console.log(obj.name)
+</script>

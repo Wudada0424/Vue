@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="js/app.css">
+    <link rel="stylesheet" href="js/foundation.min.css">
+</head>
+<body>
+        <div id="app">
+            <section class="row">
+                <div class="small-6 columns">
+                    <h1 class="text-center">奥特曼</h1>
+                    <div class="healthbar">
+                        <div class="healthbar text-center"
+                                style="background-color: green; margin: 0; color: white;"
+                                :style="{width: playerHealth + '%'}">
+                            {{ playerHealth }}
+                        </div>
+                    </div>
+                </div>
+                <div class="small-6 columns">
+                    <h1 class="text-center">小怪兽</h1>
+                    <div class="healthbar">
+                        <div
+                                class="healthbar text-center"
+                                style="background-color: green; margin: 0; color: white;"
+                                :style="{width: monsterHealth + '%'}">
+                            {{ monsterHealth }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="row controls" v-if="!gameIsRunning">
+                <div class="small-12 columns">
+                    <button id="start-game" @click="startGame">START NEW GAME</button>
+                </div>
+            </section>
+            <section class="row controls" v-else>
+                <div class="small-12 columns">
+                    <button id="attack" @click="attack">请开始PK</button>
+                    <button id="special-attack" @click="specialAttack">请开启啵啵激光</button>
+                    <button id="heal" @click="heal">吃口奶、回口血</button>
+                    <button id="give-up" @click="giveUp">有空再战斗</button>
+                </div>
+            </section>
+
+            <section class="row log" v-if="turns.length > 0">
+                <div class="small-12 columns">
+                    <ul>
+                        <li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                            {{ turn.text }}
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+
+    new Vue({
+        el:"#app",
+        data : {
+            playerHealth : 100,
+            monsterHealth:100,
+            gameIsRunning: false,
+            turns : []
+        },
+        methods : {
+            //初始化血量
+            startGame : function () {
+                this.playerHealth = 100;
+                this.monsterHealth = 100;
+                this.gameIsRunning = true;
+                this.turns = [];
+            },
+            attack : function () {
+                var damage = this.calculateDamage(3,10);
+                this.monsterHealth -= damage;
+                this.turns.unshift({
+                    isPlayer: true,
+                    text: 'Player hits Monster for 小怪兽掉血 ' + damage
+                });
+                if(this.checkWin()){
+                    return
+                }
+                this.atm()
+
+            },
+            atm : function(){
+                var damage = this.calculateDamage(3,10);
+                this.playerHealth -= damage;
+                this.turns.unshift({
+                    isPlayer: true,
+                    text: 'Player hits Monster hard for 奥特曼掉血 ' + damage
+                });
+                if(this.checkWin()){
+                    return
+                }
+            },
+
+            specialAttack :function(){
+                var damage = this.calculateDamage(5,10);
+                this.monsterHealth -= damage;
+                this.turns.unshift({
+                    isPlayer: true,
+                    text: 'Player hits Monster hard for 小怪兽掉血 ' + damage
+                });
+                if(this.checkWin()){
+                    return
+                }
+            },
+
+
+
+            heal : function(){
+                if(this.playerHealth  === 100){
+                    this.turns.unshift({
+                        isPlayer: true,
+                        text: 'Player heals for 奥特曼血量已满不需要吃奶 ' + damage
+                    });
+                    return false;
+                }else{
+                    var damage = this.calculateDamage(5, 12);
+                    if (this.playerHealth <= 90) {
+                        this.playerHealth += damage;
+                    } else {
+                        this.playerHealth = 100;
+                    }
+                    this.turns.unshift({
+                        isPlayer: true,
+                        text: 'Player heals for 奥特曼吃奶回血 ' + damage
+                    });
+                }
+                this.atm();
+            },
+            giveUp: function () {
+                this.startGame()
+                this.gameIsRunning = false;
+            },
+            checkWin: function() {
+                if (this.monsterHealth <= 0) {
+                    if (confirm('怪兽被打爆了')) {
+                        this.startGame();
+                    } else {
+                        this.gameIsRunning = false;
+                    }
+                    return true;
+                } else if (this.playerHealth <= 0) {
+                    if (confirm('奥特曼不行了')) {
+                        this.startGame();
+                    } else {
+                        this.gameIsRunning = false;
+                    }
+                    return true;
+                }
+                return false;
+            },
+
+
+            calculateDamage: function(min, max) {
+                return Math.max(Math.floor(Math.random() * max) + 1, min);
+            },
+    },
+    })
+</script>

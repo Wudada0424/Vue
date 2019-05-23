@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div id="app">
+            <input type="text" v-on:input="changeTitle">
+            <p>{{title}}</p>
+            <button v-on:click="test">get</button>
+        </div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script>
+
+    new Vue ({
+        el : "#app",
+        data : {
+            title : "我想拉屎"
+        },
+        methods : {
+            changeTitle : function (e) {
+                this.title = e.target.value;
+            },
+            test : function () {
+                alert(this.title)
+            }
+        }
+    })
+</script>
